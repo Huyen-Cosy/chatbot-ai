@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Agent Chatbot</title>
+  <title>Meo Meo AI Agent Chatbot</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', sans-serif; background: #0f0f1a; min-height: 100vh; display: flex; align-items: center; justify-content: center; color: #e2e8f0; }
+    body { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; letter-spacing: 0.2px; line-height: 1.6; background: #0f0f1a; min-height: 100vh; display: flex; align-items: center; justify-content: center; color: #e2e8f0; }
     #password-screen { width: 100%; max-width: 400px; padding: 20px; text-align: center; }
     .logo { font-size: 48px; margin-bottom: 16px; }
     .pw-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; background: linear-gradient(135deg, #667eea, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -16,6 +16,7 @@
     .pw-input:focus { border-color: #667eea; }
     .pw-btn { width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea, #a78bfa); border: none; border-radius: 10px; color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
     .pw-btn:hover { opacity: 0.9; }
+    .pw-disclaimer { margin-top: 16px; padding: 14px 16px; background: rgba(255,255,255,0.04); border: 1px solid #2d2d45; border-radius: 12px; font-size: 12px; color: #64748b; line-height: 1.7; text-align: left; }
     .pw-error { color: #f87171; font-size: 13px; margin-top: 10px; min-height: 18px; }
     #chat-screen { display: none; flex-direction: column; width: 100%; max-width: 720px; height: 100vh; }
     .chat-header { padding: 16px 20px; background: #1e1e30; border-bottom: 1px solid #2d2d45; display: flex; align-items: center; gap: 12px; }
@@ -55,27 +56,33 @@
 <body>
 
 <div id="password-screen">
-  <div class="logo">🤖</div>
-  <div class="pw-title">AI Agent Chatbot</div>
-  <div class="pw-sub">Hỗ trợ học viên lớp Agent SEE · Trăng Đen</div>
+  <div class="logo">🐱</div>
+  <div class="pw-title">Meo Meo AI Agent Chatbot</div>
+  <div class="pw-sub">Phát triển bởi <strong>Huyên Cosy</strong><br/>đang thực hành khóa học Agent SEE · Trăng Đen</div>
   <div class="pw-box">
     <input class="pw-input" type="password" id="pw-input" placeholder="Nhập mật khẩu để tiếp tục..." onkeydown="if(event.key==='Enter') unlock()"/>
     <button class="pw-btn" onclick="unlock()">Vào chatbot →</button>
     <div class="pw-error" id="pw-error"></div>
   </div>
+  <div class="pw-disclaimer">
+    💬 Vui lòng <strong>chỉ đặt câu hỏi chung chung</strong> — không nhập thông tin cá nhân, tài chính, mật khẩu hoặc bất kỳ dữ liệu nhạy cảm nào.<br/><br/>
+    🔒 Chatbot này <strong>không được thiết kế để lưu</strong> lịch sử trò chuyện — mỗi phiên chat độc lập và biến mất khi đóng tab.<br/><br/>
+    ⚠️ Chatbot sử dụng AI của <strong>Groq</strong> và được triển khai trên <strong>Vercel</strong> (các nền tảng bên thứ ba miễn phí). Người phát triển không thể đảm bảo tuyệt đối dữ liệu không bị lưu trữ hoặc rò rỉ bởi các nền tảng này.<br/><br/>
+    <em>Vui lòng chỉ nghịch chơi chơi. 🐱</em>
+  </div>
 </div>
 
 <div id="chat-screen">
   <div class="chat-header">
-    <div class="header-avatar">🤖</div>
+    <div class="header-avatar">🐱</div>
     <div class="header-info">
-      <div class="header-name">AI Agent Assistant</div>
+      <div class="header-name">Meo Meo AI Assistant</div>
       <div class="header-status">● Đang hoạt động</div>
     </div>
   </div>
   <div class="chat-messages" id="messages">
     <div class="msg bot">
-      <div class="msg-avatar">🤖</div>
+      <div class="msg-avatar">🐱</div>
       <div class="msg-bubble">Xin chào! Tôi là trợ lý AI chuyên về <strong>AI và AI Agent</strong>.
 
 Bạn có thể hỏi tôi về:
@@ -94,13 +101,12 @@ Bạn muốn hỏi gì hôm nay? 😊</div>
   <div class="chat-footer">
     <span>Model:</span>
     <select class="model-select" id="model-select">
-     <option value="llama-3.3-70b-versatile">Llama 3.3 70B ⚡ (khuyên dùng)</option>
-<option value="llama-3.1-8b-instant">Llama 3.1 8B 🪶 (nhanh hơn)</option>
-<option value="gemma2-9b-it">Gemma2 9B 🧠 (Google)</option>
-<option value="mixtral-8x7b-32768">Mixtral 8x7B 🚀 (context dài)</option>
-
+      <option value="llama-3.3-70b-versatile">Llama 3.3 70B ⚡ (khuyên dùng)</option>
+      <option value="llama-3.1-8b-instant">Llama 3.1 8B 🪶 (nhanh hơn)</option>
+      <option value="gemma2-9b-it">Gemma2 9B 🧠 (Google)</option>
+      <option value="mixtral-8x7b-32768">Mixtral 8x7B 🚀 (context dài)</option>
     </select>
-    <span>· Agent SEE · Trăng Đen</span>
+    <span>· Meo Meo · Trăng Đen</span>
   </div>
 </div>
 
@@ -116,7 +122,7 @@ Bạn muốn hỏi gì hôm nay? 😊</div>
     fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: 'Xin chào', password, model: 'gemini-1.5-flash' })
+      body: JSON.stringify({ message: 'Xin chào', password, model: 'llama-3.3-70b-versatile' })
     })
     .then(r => r.json())
     .then(data => {
@@ -139,7 +145,7 @@ Bạn muốn hỏi gì hôm nay? 😊</div>
     const container = document.getElementById('messages');
     const div = document.createElement('div');
     div.className = 'msg ' + role;
-    div.innerHTML = `<div class="msg-avatar">${role === 'bot' ? '🤖' : '👤'}</div><div class="msg-bubble">${text.replace(/</g, '&lt;').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</div>`;
+    div.innerHTML = `<div class="msg-avatar">${role === 'bot' ? '🐱' : '👤'}</div><div class="msg-bubble">${text.replace(/</g, '&lt;').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</div>`;
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
   }
@@ -148,7 +154,7 @@ Bạn muốn hỏi gì hôm nay? 😊</div>
     const container = document.getElementById('messages');
     const div = document.createElement('div');
     div.className = 'msg bot'; div.id = 'typing-indicator';
-    div.innerHTML = `<div class="msg-avatar">🤖</div><div class="msg-bubble typing"><span></span><span></span><span></span></div>`;
+    div.innerHTML = `<div class="msg-avatar">🐱</div><div class="msg-bubble typing"><span></span><span></span><span></span></div>`;
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
   }
