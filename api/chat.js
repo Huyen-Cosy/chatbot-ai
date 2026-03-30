@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -29,10 +29,7 @@ Nếu câu hỏi ngoài chủ đề, lịch sự hướng người dùng quay l�
             }]
           },
           contents: [{ parts: [{ text: message }] }],
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 1024,
-          }
+          generationConfig: { temperature: 0.7, maxOutputTokens: 1024 }
         })
       }
     );
@@ -44,10 +41,9 @@ Nếu câu hỏi ngoài chủ đề, lịch sự hướng người dùng quay l�
 
     const data = await response.json();
     const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Không có phản hồi';
-
     return res.status(200).json({ reply });
 
   } catch (error) {
     return res.status(500).json({ error: 'Lỗi server: ' + error.message });
   }
-}
+};
